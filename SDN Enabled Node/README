@@ -1,0 +1,20 @@
+# SDN-Enabled Vehicular Node
+
+## Overview
+Real-time communication node supporting dynamic interface switching (CV2X/ITS-G5) and multi-hop forwarding via SDN control. Acts as both endpoint and relay in vehicular networks.
+
+## Key Features
+- Dual-mode operation: CV2X and ITS-G5 interfaces
+- SDN control: Flow rule processing from controller
+- QoS monitoring: Latency/power threshold detection
+- Multi-hop forwarding: Wi-Fi Direct fallback paths
+- Real-time data extract: PER, CBR, PPS metrics
+
+## Repository Structure
+main.py
+├── mqtt_handler.py
+├── flow_rule_processor.py
+├── tech_controller.py
+│   ├── data_monitor.py
+│   └── forwarding_manager.py
+└── config.py
