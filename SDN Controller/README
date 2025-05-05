@@ -19,8 +19,8 @@ SDN Controller/
 ## Key Features
 
 ### 1. Dual-Mode Flow Rules
-- **Switching Rules**: Manage interface transitions between CV2X and ITS-G5
-- **Forwarding Rules**: Enable multi-hop communication for fault tolerance
+- Switching Rules: Manage interface transitions between CV2X and ITS-G5
+- Forwarding Rules: Enable multi-hop communication for fault tolerance
 
 ### 2. Core Capabilities
 - Real-time QoS monitoring (latency/power)
