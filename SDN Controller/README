@@ -8,7 +8,7 @@ SDN Controller/
 ├── node_manager.py         # Mobility simulation
 └── main.py                # Entry point
 
-# CV2X/ITS-G5 Interface Switching Controller with Multi-Hop Forwarding
+# SDN Controller with CV2X/ITS-G5 Interface Switching and Multi-Hop Forwarding
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![MQTT](https://img.shields.io/badge/protocol-MQTT-green.svg)](https://mqtt.org/)
