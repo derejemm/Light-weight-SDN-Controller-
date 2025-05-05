@@ -59,7 +59,10 @@ SDN Controller/
   "Timeout": 45  // Movement-aware duration
 }
 
-Version
+## Testing Part
+The series of T_* parameters for testing, such as the robustness of SDN Controller(Self delay), the time of flow rules reach Nodes,etc.
+
+## Tool Version
 paho-mqtt==1.6.1
 pandas==2.2.2
 numpy==1.26.4
