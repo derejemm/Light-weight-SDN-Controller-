@@ -62,6 +62,117 @@ SDN Controller/
 ## Testing Part
 The series of T_* parameters for testing, such as the robustness of SDN Controller(Self delay), the time of flow rules reach Nodes,etc.
 
+# SDN Controller Core Logic Flows
+
+## 1. Node Registration Flow
+Y → New MQTT connection established?
+  │
+  ├─ Y → Contains NODE_ID and capabilities?
+  │      │
+  │      ├─ Y → Add to node registry ∧ Send INIT rule
+  │      │      │
+  │      │      └─ Start topology timer (20s)
+  │      │
+  │      └─ N → Send error ∧ Close connection
+  │
+  └─ N → Continue listening
+
+## 2. Flow Rule Decision Flow
+Y → Received node metrics update?
+  │
+  ├─ Y → Metrics show threshold violation?
+  │      │
+  │      ├─ Y → Latency or Power violation?
+  │      │      │
+  │      │      ├─ Latency → Calculate new ITSG5/CV2X priority
+  │      │      │      │
+  │      │      │      └─ Generate switching rules (5x retry)
+  │      │      │
+  │      │      └─ Power → Check RSSI ∧ Update threshold rules
+  │      │
+  │      └─ N → Log normal status
+  │
+  └─ N → Check for stale nodes (30s timeout)
+
+## 3. Switching Logic Flow
+Y → Need interface switch?
+  │
+  ├─ Y → Single node or pair affected?
+  │      │
+  │      ├─ Single → Send direct tech-switch rule
+  │      │      │
+  │      │      └─ Start T_r timer
+  │      │
+  │      └─ Pair → Coordinate TX/RX rules
+  │             │
+  │             ├─ Calculate switching sequence
+  │             │
+  │             └─ Enforce timing sync (T_g, T_s)
+  │
+  └─ N → Check for forwarding needs
+
+## 4. Forwarding Path Flow
+Y → Abnormal node detected?
+  │
+  ├─ Y → Available relay node?
+  │      │
+  │      ├─ Y → Create forwarding rules:
+  │      │      │
+  │      │      ├─ C rule for receiver (192.168.49.1)
+  │      │      │
+  │      │      └─ GO rule for relay
+  │      │
+  │      └─ N → Trigger alert ∧ Disable node
+  │
+  └─ N → Monitor path stability
+
+## 5. Rule Timeout Flow
+Y → Rule expiration time reached?
+  │
+  ├─ Y → Rule still valid?
+  │      │
+  │      ├─ Y → Renew with new timeout
+  │      │      │
+  │      │      └─ Update priority
+  │      │
+  │      └─ N → Send DISABLE command
+  │             │
+  │             └─ Cleanup flow tables
+  │
+  └─ N → Continue monitoring
+
+## Key Timing Parameters
+1. Switching Sequence:
+   - T_r: Rule receive timestamp
+   - T_g: Rule generation delay (<50ms)
+   - T_s: Rule send timestamp
+   - T_b: Node ACK received
+
+2. Thresholds:
+   - Latency critical: >30ms (5 samples)
+   - Power critical: < -80dBm (3 samples)
+   - Zero-value timeout: 10 samples
+
+3. Forwarding:
+   - Relay selection time: <200ms
+   - Socket timeout: 5s
+   - Retry interval: 3s
+
+## Failure Handling
+Y → Node unresponsive?
+  │
+  ├─ Y → Attempt rediscovery (3x)
+  │      │
+  │      ├─ Successful?
+  │      │      │
+  │      │      ├─ Y → Re-sync state
+  │      │      │
+  │      │      └─ N → Mark offline
+  │      │
+  │      └─ Update topology
+  │
+  └─ N → Check rule compliance
+
 ## Tool Version
 paho-mqtt==1.6.1
 pandas==2.2.2
