@@ -1,0 +1,65 @@
+Repository Structure
+SDN Controller/
+├── config.py               # Configuration and constants
+├── data_processor.py       # Node state tracking
+├── flow_rule_manager.py    # Rule generation (including forwarding)
+├── metrics_monitor.py      # Failure detection & relay selection
+├── mqtt_handler.py         # Communication layer
+├── node_manager.py         # Mobility simulation
+└── main.py                # Entry point
+
+# CV2X/ITS-G5 Interface Switching Controller with Multi-Hop Forwarding
+
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![MQTT](https://img.shields.io/badge/protocol-MQTT-green.svg)](https://mqtt.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+A Python-based controller for managing interface switching and multi-hop forwarding in vehicular networks, using MQTT for real-time communication.
+
+## Key Features
+
+### 1. Dual-Mode Flow Rules
+- **Switching Rules**: Manage interface transitions between CV2X and ITS-G5
+- **Forwarding Rules**: Enable multi-hop communication for fault tolerance
+
+### 2. Core Capabilities
+- Real-time QoS monitoring (latency/power)
+- Dynamic interface switching
+- Relay node selection for failed nodes
+- Movement-aware timeout calculation
+- Comprehensive logging system
+
+## Flow Rule Types
+
+| Rule Type        | Purpose                          | Trigger Condition                     |
+|------------------|----------------------------------|---------------------------------------|
+| `Tech switching` | Interface transition             | QoS threshold violation               |
+| `Forwarding`     | Multi-hop packet relay           | Node failure/coverage gap detection  |
+| `Initialization` | Node setup/reset                 | New node registration                 |
+
+**Switching Rule Example**:
+```json
+{
+  "Num": "012",
+  "Command type": "Tech Switching",
+  "Value": "ITSG5",  // Switch to ITS_G5
+  "Next hop": "aa:bb:cc:dd:ee:ff",
+  "Current interface": "CV2X",
+  "Timeout": 45  // Movement-aware duration
+}
+
+**Forwarding Rule Example**:
+```json
+{
+  "Num": "012",
+  "Command type": "Forwarding",
+  "Value": "GO",  // Group Owner role
+  "Next hop": "aa:bb:cc:dd:ee:ff",
+  "Current interface": "CV2X",
+  "Timeout": 45  // Movement-aware duration
+}
+
+Version
+paho-mqtt==1.6.1
+pandas==2.2.2
+numpy==1.26.4
