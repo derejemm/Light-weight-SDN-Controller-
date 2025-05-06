@@ -1,5 +1,8 @@
 # SDN-Enabled Vehicular Node
 
+[![wpa_supplicant](https://img.shields.io/badge/tool-wpa__supplicant-important.svg)](https://w1.fi/wpa_supplicant/)
+[![netcat](https://img.shields.io/badge/tool-netcat-lightgrey.svg)](https://linux.die.net/man/1/nc)
+
 ## Overview
 Real-time communication node supporting dynamic interface switching (CV2X/ITS-G5) and multi-hop forwarding via SDN control. Acts as both endpoint and relay in vehicular networks.
 
