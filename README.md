@@ -15,7 +15,6 @@ This repository implements a Software-Defined Networking (SDN) framework for man
 - [Dependencies](#dependencies)
 - [Usage](#usage)
 - [Logs](#logs)
-- [License](#license)
 
 ---
 
@@ -182,6 +181,26 @@ Assigns IP 192.168.49.2
 ```
 
 Connects to GO via MAC discovery and P2P handshake
+
+## Logs
+
+All log files are stored in `/mnt/rw/log/` on the MK6 device unless otherwise specified. They help track the node status, performance metrics, switching events, and forwarding behavior.
+
+| Log File | Description |
+|----------|-------------|
+| `Data_Testing.log` | Timestamped records of interface switching durations and events. |
+| `extracted_data.log` | Real-time telemetry from interfaces (RSSI, latency, PER, power, etc.). |
+| `match_info.log` | Last known match parameters for flow rule matching (e.g., MAC, IP). |
+| `real_time_rules.log` | Stores a copy of all currently received flow rules from the controller. |
+| `executed_flow_value.log` | Tracks the latest executed value (e.g., ITSG5_tx, CV2X_rx, GO, etc.) along with a timestamp. |
+| `Forwarding_info.log` | Captures data received through Wi-Fi Direct socket on the GO node. |
+| `llc_tx_test.log`, `llc_rx_test.log` | Output of ITS-G5 traffic generation tools (e.g., LLC test-tx/rx). |
+| `llc_rssi_tx.log`, `llc_rssi_rx.log` | Channel quality and RSSI reports from ITS-G5 logs. |
+| `cv2x_tx.log`, `cv2x_rx.log` | Packet traces of CV2X communication captured via `tcpdump`. |
+| `acme_rx.log` | Output of C-V2X ACME reception logs, including latency, PPS, CBP. |
+| `Testing_Data` | Time-stamped switching info between interfaces with durations. |
+
+> ⚠️ Note: These logs are crucial for evaluating switching delays, connectivity stability, and flow rule effectiveness. They are used in analysis and visualization tools for post-processing.
 
 
 
