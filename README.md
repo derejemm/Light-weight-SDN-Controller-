@@ -63,7 +63,7 @@ The system consists of:
 
 ---
 
-## Dependencies
+## Dependencies—Software
 
 ### SDN Controller: 
 [![MQTT](https://img.shields.io/badge/protocol-MQTT-green.svg)](https://mqtt.org/)
@@ -93,7 +93,13 @@ The system consists of:
 [![iproute2](https://img.shields.io/badge/tool-iproute2-lightgrey.svg)](https://wiki.linuxfoundation.org/networking/iproute2)
 [![ifconfig](https://img.shields.io/badge/tool-ifconfig-lightgrey.svg)](https://man7.org/linux/man-pages/man8/ifconfig.8.html)
 
+## Dependencies—Hardware
 
+### MK6 series devices(RSU/OBU)
+This project runs on Cohda Wireless MK6 series devices (including OBU and RSU), supporting native ITS-G5 (IEEE 802.11p) and C-V2X communication. It integrates dedicated modules such as llc, etsa, and acme for low-level channel control and data acquisition. The device supports enabling Wi-Fi Direct via wpa_supplicant and can be remotely accessed via SSH. All modules and drivers are available through the Cohda Wireless official support platform(https://www.cohdawireless.com/).
+
+### USRP-2901
+USRP devices used for base station support in srsRAN and for channel modulation support between MK6 devices.
 
 
 ```bash
