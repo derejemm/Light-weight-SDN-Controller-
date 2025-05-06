@@ -15,6 +15,7 @@ Real-time communication node supporting dynamic interface switching (CV2X/ITS-G5
 - Real-time data extract: PER, CBR, PPS metrics
 
 ## Repository Structure
+```text
 main.py
 ├── mqtt_handler.py
 ├── flow_rule_processor.py
@@ -22,6 +23,7 @@ main.py
 │   ├── data_monitor.py
 │   └── forwarding_manager.py
 └── config.py
+```
 
 ## Testing Part
 The series of T_* parameters for testing, such as the time taken of switching module.
@@ -29,6 +31,7 @@ The series of T_* parameters for testing, such as the time taken of switching mo
 # SDN Node Core Logic Flows
 
 ## 1. Main Control Flow
+```text
 Y → MQTT message received?
   │
   ├─ Y → Contains flow rule?
@@ -50,8 +53,10 @@ Y → MQTT message received?
   │             └─ N → Log unknown message
   │
   └─ N → Check connection ∧ Reconnect
+```
 
 ## 2. Rule Execution Flow (run_value)
+```text
 Y → Is technology switch command? (ITSG5/CV2X)
   │
   ├─ Y → Stop current captures → Start new interface → Send 3x interface status
@@ -69,8 +74,10 @@ Y → Is technology switch command? (ITSG5/CV2X)
          │      └─ Group Owner? → Immediate start
          │
          └─ N → Log unknown command
+```
 
 ## 3. Data Monitoring Flow
+```text
 Y → Extraction interval reached?
   │
   ├─ Y → Read second-newest log line → Parse metrics
@@ -88,8 +95,10 @@ Y → Extraction interval reached?
   │             └─ N → MQTT report only
   │
   └─ N → Continue monitoring cycle
+```
 
 ## 4. Exception Handling Flow
+```text
 Y → Zero-value metric detected? (latency=0/power=0)
   │
   ├─ Y → Zero-count++ → Exceeds 10?
@@ -103,8 +112,10 @@ Y → Zero-value metric detected? (latency=0/power=0)
          ├─ Y → Priority-based rule switch
          │
          └─ N → Maintain current state
+```
 
 ## 5. Forwarding Engine Flow
+```text
 Y → Data received for forwarding?
   │
   ├─ Y → Socket connected?
@@ -114,6 +125,7 @@ Y → Data received for forwarding?
   │      └─ N → Start retry (5 attempts/3s interval)
   │
   └─ N → Check queue backlog → Retry after 1s timeout
+```
 
 ## Key Decision Parameters
 1. Technology Switch Conditions:
