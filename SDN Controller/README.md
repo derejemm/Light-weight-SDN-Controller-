@@ -34,13 +34,16 @@ A Python-based controller for managing interface switching and multi-hop forward
 
 ## Flow Rule Types
 
+```text
 | Rule Type        | Purpose                          | Trigger Condition                     |
 |------------------|----------------------------------|---------------------------------------|
 | `Tech switching` | Interface transition             | QoS threshold violation               |
 | `Forwarding`     | Multi-hop packet relay           | Node failure/coverage gap detection  |
 | `Initialization` | Node setup/reset                 | New node registration                 |
+```
 
 **Switching Rule Example**:
+```bash
 {
   "Num": "012",
   "Command type": "Tech Switching",
@@ -49,8 +52,10 @@ A Python-based controller for managing interface switching and multi-hop forward
   "Current interface": "CV2X",
   "Timeout": 45  // Movement-aware duration
 }
+```
 
 **Forwarding Rule Example**:
+```bash
 {
   "Num": "012",
   "Command type": "Forwarding",
@@ -59,6 +64,7 @@ A Python-based controller for managing interface switching and multi-hop forward
   "Current interface": "CV2X",
   "Timeout": 45  // Movement-aware duration
 }
+```
 
 ## Testing Part
 The series of T_* parameters for testing, such as the robustness of SDN Controller(Self delay), the time of flow rules reach Nodes,etc.
@@ -66,6 +72,7 @@ The series of T_* parameters for testing, such as the robustness of SDN Controll
 # SDN Controller Core Logic Flows
 
 ## 1. Node Registration Flow
+```text
 Y → New MQTT connection established?
   │
   ├─ Y → Contains NODE_ID and capabilities?
@@ -77,8 +84,10 @@ Y → New MQTT connection established?
   │      └─ N → Send error ∧ Close connection
   │
   └─ N → Continue listening
+```
 
 ## 2. Flow Rule Decision Flow
+```text
 Y → Received node metrics update?
   │
   ├─ Y → Metrics show threshold violation?
@@ -94,8 +103,10 @@ Y → Received node metrics update?
   │      └─ N → Log normal status
   │
   └─ N → Check for stale nodes (30s timeout)
+```
 
 ## 3. Switching Logic Flow
+```text
 Y → Need interface switch?
   │
   ├─ Y → Single node or pair affected?
@@ -111,8 +122,10 @@ Y → Need interface switch?
   │             └─ Enforce timing sync (T_g, T_s)
   │
   └─ N → Check for forwarding needs
+```
 
 ## 4. Forwarding Path Flow
+```text
 Y → Abnormal node detected?
   │
   ├─ Y → Available relay node?
@@ -126,8 +139,10 @@ Y → Abnormal node detected?
   │      └─ N → Trigger alert ∧ Disable node
   │
   └─ N → Monitor path stability
+```
 
 ## 5. Rule Timeout Flow
+```text
 Y → Rule expiration time reached?
   │
   ├─ Y → Rule still valid?
@@ -141,6 +156,7 @@ Y → Rule expiration time reached?
   │             └─ Cleanup flow tables
   │
   └─ N → Continue monitoring
+```
 
 ## Key Timing Parameters
 1. Switching Sequence:
@@ -160,6 +176,7 @@ Y → Rule expiration time reached?
    - Retry interval: 3s
 
 ## Failure Handling
+```text
 Y → Node unresponsive?
   │
   ├─ Y → Attempt rediscovery (3x)
@@ -173,6 +190,7 @@ Y → Node unresponsive?
   │      └─ Update topology
   │
   └─ N → Check rule compliance
+```
 
 ## Tool Version
 paho-mqtt==1.6.1
