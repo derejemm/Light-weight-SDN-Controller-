@@ -1,5 +1,6 @@
 # SDN-Enabled Vehicular Node
 
+[![MQTT Client](https://img.shields.io/badge/client-paho--mqtt-orange.svg)](https://pypi.org/project/paho-mqtt/)
 [![wpa_supplicant](https://img.shields.io/badge/tool-wpa__supplicant-important.svg)](https://w1.fi/wpa_supplicant/)
 [![netcat](https://img.shields.io/badge/tool-netcat-lightgrey.svg)](https://linux.die.net/man/1/nc)
 
