@@ -38,7 +38,6 @@ SDN Controller/
 | `Initialization` | Node setup/reset                 | New node registration                 |
 
 **Switching Rule Example**:
-```json
 {
   "Num": "012",
   "Command type": "Tech Switching",
@@ -49,7 +48,6 @@ SDN Controller/
 }
 
 **Forwarding Rule Example**:
-```json
 {
   "Num": "012",
   "Command type": "Forwarding",
