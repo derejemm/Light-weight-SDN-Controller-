@@ -1,7 +1,7 @@
 # SDN Controller with CV2X/ITS-G5 Interface Switching and Multi-Hop Forwarding
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![MQTT](https://img.shields.io/badge/protocol-MQTT-green.svg)](https://mqtt.org/)
+[![MQTT Broker](https://img.shields.io/badge/broker-mosquitto-blue.svg)](https://mosquitto.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A Python-based controller for managing interface switching and multi-hop forwarding in vehicular networks, using MQTT for real-time communication.
