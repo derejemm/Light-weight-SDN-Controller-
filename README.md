@@ -203,7 +203,7 @@ All log files are stored in `/mnt/rw/log/` on the MK6 device unless otherwise sp
 
 > ⚠️ Note: These logs are crucial for evaluating switching delays, connectivity stability, and flow rule effectiveness. They are used in analysis and visualization tools for post-processing.
 
-## Getting Started
+## Getting_Started
 
 You can clone or download this repository using the following command:
 
