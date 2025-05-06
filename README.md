@@ -101,6 +101,90 @@ This project runs on Cohda Wireless MK6 series devices (including OBU and RSU), 
 ### USRP-2901
 USRP devices used for base station support in srsRAN and for channel modulation support between MK6 devices.
 
+###
+Usage
+1. Base Station & Core Network Setup
+Ensure the core LTE/5G infrastructure is running to enable communication between the SDN Controller and Nodes.
+
+Step 1: Configure user_db.csv
+In srsRAN's EPC configuration, ensure each node's IMSI, key, and APN are registered:
+
+csv
+复制
+编辑
+imsi,key,opc,amf,msisdn
+001010123456789,00112233445566778899aabbccddeeff,00000000000000000000000000000000,8000,0000000001
+Step 2: Start srsRAN and Open5GS
+bash
+复制
+编辑
+# EPC (srsRAN)
+sudo srsran_epc
+
+# eNB (srsRAN)
+sudo srsran_enb
+
+# 5G Core (Open5GS)
+sudo systemctl start open5gs-mmed
+sudo systemctl start open5gs-sgwcd
+sudo systemctl start open5gs-sgwud
+You may need to configure:
+
+enb.conf (to match eNB IP and MME)
+
+gnb.conf (for 5G testbed if applicable)
+
+2. Run the SDN Controller
+bash
+复制
+编辑
+python3 controller.py
+The controller subscribes to telemetry (node/data/NODE_ID) and dispatches flow rules (node/command/NODE_ID) via MQTT.
+
+3. Deploy Nodes
+On each SDN-enabled node (e.g., MK6 OBU/RSU):
+
+bash
+复制
+编辑
+python3 node_client.py
+Each node will:
+
+Initialize with a unique NODE_ID
+
+Report metrics from its interface (ITS-G5 or CV2X)
+
+Apply flow rules sent from the controller
+
+Automatically switch communication tech as needed
+
+4. Run Interface Switching Script
+Each node automatically uses switch_tech.py during control events. You can also manually invoke it:
+'''bash
+python3 switch_tech.py ITSG5_tx      # Start ITS-G5 TX
+python3 switch_tech.py CV2X_rx       # Start CV2X RX
+python3 switch_tech.py disc          # Disconnect all
+python3 switch_tech.py check         # Check current interface
+5. Configure and Use Wi-Fi Direct Fallback
+Used when both ITS-G5 and CV2X fail.
+
+On GO (Group Owner):
+bash
+复制
+编辑
+python3 wifi_p2p_server.py <CLIENT_MAC>
+Assigns IP 192.168.49.1
+
+Listens on port 9000 for forwarded packets
+
+On Client:
+bash
+复制
+编辑
+python3 wifi_p2p_client.py <GO_MAC>
+Assigns IP 192.168.49.2
+
+Connects to GO via MAC discovery and P2P handshake
 
 ```bash
 pip install -r requirements.txt
