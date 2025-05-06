@@ -6,15 +6,18 @@
 
 A Python-based controller for managing interface switching and multi-hop forwarding in vehicular networks, using MQTT for real-time communication.
 
-Repository Structure
-SDN Controller/
-├── config.py               # Configuration and constants
-├── data_processor.py       # Node state tracking
-├── flow_rule_manager.py    # Rule generation (including forwarding)
-├── metrics_monitor.py      # Failure detection & relay selection
-├── mqtt_handler.py         # Communication layer
-├── node_manager.py         # Mobility simulation
-└── main.py                # Entry point
+## Project Structure
+
+```text
+├── config.py             # Configuration and constants
+├── data_processor.py     # Node state tracking
+├── flow_rule_manager.py  # Rule generation (including forwarding)
+├── metrics_monitor.py    # Failure detection & relay selection
+├── mqtt_handler.py       # Communication layer
+├── node_manager.py       # Mobility simulation
+└── main.py               # Entry point
+```
+
 
 ## Key Features
 
