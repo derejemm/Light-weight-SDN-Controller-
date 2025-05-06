@@ -65,8 +65,36 @@ The system consists of:
 
 ## Dependencies
 
-### Python
-Install with:
+### SDN Controller: 
+[![MQTT](https://img.shields.io/badge/protocol-MQTT-green.svg)](https://mqtt.org/)
+[![srsRAN 4G/5G](https://img.shields.io/badge/network-srsRAN-orange.svg)](https://github.com/srsRAN/srsRAN_Project)
+[![Open5GS](https://img.shields.io/badge/core%20network-Open5GS-yellow.svg)](https://open5gs.org/)
+
+### SDN Enabled Nodes:
+[![Wi‑Fi Direct](https://img.shields.io/badge/connectivity-WiFi--Direct-9cf.svg)](https://en.wikipedia.org/wiki/Wi-Fi_Direct)
+[![wpa_supplicant](https://img.shields.io/badge/tool-wpa__supplicant-important.svg)](https://w1.fi/wpa_supplicant/)
+[![netcat](https://img.shields.io/badge/tool-netcat-lightgrey.svg)](https://linux.die.net/man/1/nc)
+[![iproute2](https://img.shields.io/badge/tool-iproute2-lightgrey.svg)](https://wiki.linuxfoundation.org/networking/iproute2)
+
+### Testing:
+
+#### The test flow table is sent from the controller to the node and configured in the enb/gnb.conf file for the communication environment.
+[![srsRAN 4G/5G](https://img.shields.io/badge/network-srsRAN-orange.svg)](https://github.com/srsRAN/srsRAN_Project)
+[![Open5GS](https://img.shields.io/badge/core%20network-Open5GS-yellow.svg)](https://open5gs.org/)
+
+#### The ITG5/CV2X test section can be configured using the LLC and ACME tools included with MK6 devices to send data. GNURadio is used to configure the communication environment.
+[![ITSG5 Tool](https://img.shields.io/badge/module-llc-lightgrey.svg)]([https://www.nordsys.de/](https://support.cohdawireless.com/))
+[![C-V2X Tool](https://img.shields.io/badge/module-acme-lightgrey.svg)]([https://www.qualcomm.com/](https://support.cohdawireless.com/))
+[![GNU Radio](https://img.shields.io/badge/SDR-GNU%20Radio-orange.svg)](https://www.gnuradio.org/)
+
+#### The testing part of the multi-hop network requires the use of commonly used network tools.
+[![netcat](https://img.shields.io/badge/tool-netcat-lightgrey.svg)](https://linux.die.net/man/1/nc)
+[![iperf](https://img.shields.io/badge/tool-iperf-lightgrey.svg)](https://iperf.fr/)
+[![iproute2](https://img.shields.io/badge/tool-iproute2-lightgrey.svg)](https://wiki.linuxfoundation.org/networking/iproute2)
+[![ifconfig](https://img.shields.io/badge/tool-ifconfig-lightgrey.svg)](https://man7.org/linux/man-pages/man8/ifconfig.8.html)
+
+
+
 
 ```bash
 pip install -r requirements.txt
