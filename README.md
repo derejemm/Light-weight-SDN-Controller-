@@ -23,7 +23,7 @@ This repository implements a Software-Defined Networking (SDN) framework for man
 
 The system consists of:
 - A centralized **SDN Controller** (`controller.py`) that distributes flow rules via MQTT.
-- Distributed **SDN-Enabled Nodes** (`node_client.py`) that dynamically switch between wireless technologies and report telemetry.
+- Distributed **SDN-Enabled Nodes** (`obu/rsu.py`) that dynamically switch between wireless technologies and report telemetry.
 - A **fallback forwarding mechanism** using Wi-Fi Direct for resilient communication when primary interfaces fail.
 - A **Switching Mudule** intergrated in Nodes devices to manage the switching between varies interfaces.
 
@@ -145,7 +145,7 @@ The controller subscribes to telemetry (node/data/NODE_ID) and dispatches flow r
 3. Deploy Nodes
 On each SDN-enabled node (e.g., MK6 OBU/RSU):
 ```bash
-python3 node_client.py
+python3 obu/rsu.py
 ```
 Each node will:
 
